@@ -553,7 +553,7 @@
         <div class="grid-2">
           <div>
             <label class="tiny" for="modalGenre">Genre</label>
-            <input id="modalGenre" />
+<select id="modalGenre"></select>
           </div>
           <div>
             <label class="tiny" for="modalTag">Who recommends this?</label>
@@ -787,6 +787,13 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
     function renderGenreSelector() {
   el.newGenre.innerHTML =
+    ALL_GENRES.map(g =>
+      `<option value="${g}">${g}</option>`
+    ).join("");
+}
+
+    function renderModalGenreSelector() {
+  el.modalGenre.innerHTML =
     ALL_GENRES.map(g =>
       `<option value="${g}">${g}</option>`
     ).join("");

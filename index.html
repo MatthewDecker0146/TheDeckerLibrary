@@ -688,6 +688,12 @@
     };
 
     const state = loadState();
+
+if (!state.goal || state.goal.target !== GOAL_TARGET) {
+  state.goal = { target: GOAL_TARGET };
+  saveState();
+}
+    
     let selectedBookId = null;
 
     const el = {

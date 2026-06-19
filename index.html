@@ -638,6 +638,22 @@
     const SITE_URL = window.location.href.split('#')[0];
     const GOAL_TARGET = 50;
 
+    const ALL_GENRES = [
+  "Fantasy",
+  "Science Fiction",
+  "Mystery",
+  "Adventure",
+  "Historical Fiction",
+  "Biography",
+  "Autobiography",
+  "History",
+  "Non-Fiction",
+  "Nature",
+  "Christian",
+  "Classics",
+  "Poetry"
+];
+
     const defaultData = {
       books: [],
       wishlist: [
@@ -735,19 +751,25 @@
       });
     }
 
-  function renderFilters() {
-  const genres = [...new Set(state.books.map(b => b.genre).filter(Boolean))].sort();
+function renderFilters() {
   const tags = [...new Set(state.books.map(b => b.tag).filter(Boolean))].sort();
 
   el.genreFilter.innerHTML =
     `<option value="All">All genres</option>` +
-    genres.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join("");
+    ALL_GENRES.map(g => `<option value="${g}">${g}</option>`).join("");
 
   el.tagFilter.innerHTML =
     `<option value="All">All tags</option>` +
     tags.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
 }
 
+    function renderGenreSelector() {
+  el.newGenre.innerHTML =
+    ALL_GENRES.map(g =>
+      `<option value="${g}">${g}</option>`
+    ).join("");
+}
+    
     function renderStats() {
       const total = state.books.length;
       const reading = state.books.filter(b => b.status === "Reading").length;
@@ -1023,7 +1045,9 @@
     });
 
     window.addEventListener("beforeunload", saveState);
-    renderAll();
+
+renderGenreSelector();
+renderAll();
   </script>
 </body>
 </html>

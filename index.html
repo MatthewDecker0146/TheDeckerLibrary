@@ -492,9 +492,13 @@
               <option value="">Who recommends this? (optional)</option>
               <option>Mom’s Favorite</option>
               <option>Dad’s Favorite</option>
-              <option>Billy’s Favorite</option>
-              <option>Matthew’s Favorite</option>
-              <option>Sibling Favorite</option>
+              <option>Joseph's Favorite</option>
+              <option>Micheal’s Favorite</option>
+              <option>Matthew's Favorite</option>
+               <option>Gabe's Favorite</option>
+               <option>Elizabeth's Favorite</option>
+                <option>John's Favorite</option>
+                <option>James's Favorite</option>
             </select>
             <button id="addBookBtn">Add Book</button>
           </div>
@@ -654,6 +658,18 @@
   "Poetry"
 ];
 
+    const ALL_TAGS = [
+  "Mom's Favorite",
+  "Dad's Favorite",
+  "Joseph's Favorite",
+  "Michael's Favorite",
+  "Matthew's Favorite",
+  "Gabe's Favorite",
+  "Elizabeth's Favorite",
+  "John's Favorite",
+  "James's Favorite"
+];
+
     const defaultData = {
       books: [],
       wishlist: [
@@ -751,16 +767,14 @@
       });
     }
 
-function renderFilters() {
-  const tags = [...new Set(state.books.map(b => b.tag).filter(Boolean))].sort();
-
+    function renderFilters() {
   el.genreFilter.innerHTML =
     `<option value="All">All genres</option>` +
     ALL_GENRES.map(g => `<option value="${g}">${g}</option>`).join("");
 
   el.tagFilter.innerHTML =
     `<option value="All">All tags</option>` +
-    tags.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
+    ALL_TAGS.map(t => `<option value="${t}">${t}</option>`).join("");
 }
 
     function renderGenreSelector() {
@@ -879,8 +893,19 @@ function renderFilters() {
         <span class="badge ${book.status.toLowerCase()}">${esc(book.status)}</span>
       `;
 
-      el.modalTags.innerHTML = ["Mom’s Favorite", "Dad’s Favorite", "Billy’s Favorite", "Matthew’s Favorite", "Sibling Favorite"]
-        .map(tag => `<span class="tag" data-tag-pick="${esc(tag)}">${esc(tag)}</span>`).join("");
+    el.modalTags.innerHTML = [
+  "Mom's Favorite",
+  "Dad's Favorite",
+  "Joseph's Favorite",
+  "Michael's Favorite",
+  "Matthew's Favorite",
+  "Gabe's Favorite",
+  "Elizabeth's Favorite",
+  "John's Favorite",
+  "James's Favorite"
+]
+  .map(tag => `<span class="tag" data-tag-pick="${esc(tag)}">${esc(tag)}</span>`)
+  .join("");
 
       renderHistory(book);
       el.bookDialog.showModal();

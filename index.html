@@ -648,7 +648,7 @@
   <script>
     const STORAGE_KEY = "family-library-v1";
     const SITE_URL = window.location.href.split('#')[0];
-    const GOAL_TARGET = 50;
+    const GOAL_TARGET = 15;
 
     const ALL_GENRES = [
   "Fantasy",
@@ -797,7 +797,9 @@
       const reading = state.books.filter(b => b.status === "Reading").length;
       const available = state.books.filter(b => b.status === "Available").length;
       const reviewed = state.books.filter(b => (b.rating || 0) > 0).length;
-      const goalCount = 30;
+      const goalCount = state.books.reduce((sum, book) => {
+  return sum + (book.history ? book.history.length : 0);
+}, 0);
       const pct = Math.min(100, Math.round((goalCount / state.goal.target) * 100));
 
       el.statsSummary.innerHTML = `

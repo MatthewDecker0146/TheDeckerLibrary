@@ -876,9 +876,10 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
             </div>
             ${book.tag ? `<div class="badge-row"><span class="badge">⭐ ${esc(book.tag)}</span></div>` : ""}
             <div class="book-actions">
-              <button data-open-book="${book.id}">Open</button>
-              <button class="secondary" data-toggle-status="${book.id}">Toggle</button>
-            </div>
+  <button data-open-book="${book.id}">Open</button>
+  <button class="secondary" data-toggle-status="${book.id}">Toggle</button>
+  <button class="secondary" data-delete-book="${book.id}">Delete</button>
+</div>
           </div>
         </article>
       `).join("");
@@ -949,6 +950,19 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       `;
     }
 
+function deleteBook(id) {
+  const book = state.books.find(b => b.id === id);
+  if (!book) return;
+
+  const ok = confirm(`Are you sure you want to delete "${book.title}"? This cannot be undone.`);
+
+  if (!ok) return;
+
+  state.books = state.books.filter(b => b.id !== id);
+  saveState();
+  renderAll();
+}
+    
     function saveSelectedBook() {
       if (!selectedBookId) return;
       const book = state.books.find(b => b.id === selectedBookId);
@@ -1070,12 +1084,14 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       const removeWishBtn = e.target.closest("[data-remove-wish]");
       const emojiBtn = e.target.closest("[data-emoji]");
       const tagPick = e.target.closest("[data-tag-pick]");
+      const deleteBtn = e.target.closest("[data-delete-book]");
 
       if (openBookBtn) openBook(openBookBtn.dataset.openBook);
       if (toggleStatusBtn) toggleStatus(toggleStatusBtn.dataset.toggleStatus);
       if (removeWishBtn) removeWish(removeWishBtn.dataset.removeWish);
       if (emojiBtn) el.modalEmoji.value = emojiBtn.dataset.emoji;
       if (tagPick) el.modalTag.value = tagPick.dataset.tagPick;
+      if (deleteBtn) deleteBook(deleteBtn.dataset.deleteBook);
     });
 
     window.addEventListener("beforeunload", saveState);

@@ -975,37 +975,39 @@
       openBook(selectedBookId);
     }
 
-   function addBook() {
-  const file = document.getElementById("imageUpload").files[0];
+  function addBook() {
+  const title = el.newTitle.value.trim();
+  const author = el.newAuthor.value.trim();
+  const genre = el.newGenre.value;
+  const shelf = el.newShelf.value;
+  const shelfNum = el.newShelfNum.value;
+  const cover = el.newCover.value.trim();
+  const tag = el.newTag.value;
+
+  if (!title) return alert("Please enter a title.");
 
   const book = {
-    title: title.value || "Untitled",
-    author: author.value || "Unknown",
-    genre: genre.value || "Unsorted",
-    shelf: shelf.value || "N/A",
-    shelfNum: el.newShelfNum.value,
-    image: ""
+    id: crypto.randomUUID(),
+    title: title || "Untitled",
+    author: author || "Unknown",
+    genre: genre || "Unsorted",
+    shelf: shelf || "N/A",
+    shelfNum: shelfNum || "",
+    cover: cover || "",
+    tag: tag || "",
+    status: "Available",
+    currentReader: "",
+    rating: 0,
+    emoji: "",
+    review: "",
+    history: []
   };
 
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      book.image = e.target.result;
-
-      state.books.unshift(book);
-      saveState();
-      render();
-    };
-
-    reader.readAsDataURL(file);
-  } else {
-    state.books.unshift(book);
-    saveState();
-    render();
-  }
+  state.books.unshift(book);
+  saveState();
+  renderAll();
 }
-
+    
     function addWish() {
       const title = el.wishTitle.value.trim();
       if (!title) return alert("Please add a wishlist title.");

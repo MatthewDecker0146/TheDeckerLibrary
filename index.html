@@ -488,7 +488,12 @@
   <option value="Bookshelf 1">Bookshelf 1</option>
   <option value="Bookshelf 2">Bookshelf 2</option>
 </select>
-            <input id="newShelfNum" type="number" min="1" placeholder="Shelf number" />
+            <select id="newShelfNum">
+  <option value="Column 1">Column 1</option>
+  <option value="Column 2">Column 2</option>
+  <option value="Column 3">Column 3</option>
+  <option value="Column 4">Column 4</option>
+</select>
           </div>
           <div class="grid-2" style="margin-top:10px;">
             <select id="newTag">
@@ -976,7 +981,7 @@
     author: author.value || "Unknown",
     genre: genre.value || "Unsorted",
     shelf: shelf.value || "N/A",
-    shelfNum: shelfNum.value || "0",
+    shelfNum: el.newShelfNum.value,
     image: ""
   };
 

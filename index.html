@@ -1020,16 +1020,7 @@ function renderFilters() {
     el.saveBookBtn.addEventListener("click", saveSelectedBook);
     el.addHistoryBtn.addEventListener("click", addHistoryEntry);
     el.closeDialogBtn.addEventListener("click", () => el.bookDialog.close());
-    el.copyUrlBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(SITE_URL);
-        el.copyUrlBtn.textContent = "Copied!";
-        setTimeout(() => el.copyUrlBtn.textContent = "Copy website link", 1200);
-      } catch {
-        alert("Copy failed. You can manually copy the link.");
-      }
-    });
-
+  
     document.addEventListener("click", (e) => {
       const openBookBtn = e.target.closest("[data-open-book]");
       const toggleStatusBtn = e.target.closest("[data-toggle-status]");

@@ -620,15 +620,6 @@
           <textarea id="modalReview" rows="3" placeholder="Write a short review..."></textarea>
         </div>
 
-        <div class="emoji-row">
-          <button data-emoji="😀">😀</button>
-          <button data-emoji="🤩">🤩</button>
-          <button data-emoji="👍">👍</button>
-          <button data-emoji="😐">😐</button>
-          <button data-emoji="😭">😭</button>
-          <button data-emoji="😴">😴</button>
-        </div>
-
         <div class="family-tags" id="modalTags"></div>
 
         <div>
@@ -1082,14 +1073,12 @@ function deleteBook(id) {
       const openBookBtn = e.target.closest("[data-open-book]");
       const toggleStatusBtn = e.target.closest("[data-toggle-status]");
       const removeWishBtn = e.target.closest("[data-remove-wish]");
-      const emojiBtn = e.target.closest("[data-emoji]");
       const tagPick = e.target.closest("[data-tag-pick]");
       const deleteBtn = e.target.closest("[data-delete-book]");
 
       if (openBookBtn) openBook(openBookBtn.dataset.openBook);
       if (toggleStatusBtn) toggleStatus(toggleStatusBtn.dataset.toggleStatus);
       if (removeWishBtn) removeWish(removeWishBtn.dataset.removeWish);
-      if (emojiBtn) el.modalEmoji.value = emojiBtn.dataset.emoji;
       if (tagPick) el.modalTag.value = tagPick.dataset.tagPick;
       if (deleteBtn) deleteBook(deleteBtn.dataset.deleteBook);
     });

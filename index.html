@@ -938,12 +938,19 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       const historyHtml = book.history
         .slice()
         .reverse()
-        .map(h => `
-          <div class="review-entry">
-            <strong>${esc(h.name)}</strong> • ${esc(h.date)}<br>
-            <small>${esc(h.note || "Read")}</small>
-          </div>
-        `).join("");
+        .map((h, index) => `
+  <div class="review-entry">
+    <strong>${esc(h.name)}</strong> • ${esc(h.date)}<br>
+    <small>${esc(h.note || "Read")}</small><br>
+    <button
+      class="secondary"
+      data-delete-history="${index}"
+      style="margin-top:8px;"
+    >
+      Delete
+    </button>
+  </div>
+`).join("");
       el.modalHistory.innerHTML = historyHtml;
       el.historyPreview.innerHTML = `
         <strong>${esc(book.title)}</strong>
@@ -962,6 +969,21 @@ function deleteBook(id) {
   state.books = state.books.filter(b => b.id !== id);
   saveState();
   renderAll();
+}
+
+    function deleteHistoryEntry(index) {
+  if (!selectedBookId) return;
+
+  const book = state.books.find(b => b.id === selectedBookId);
+  if (!book || !book.history) return;
+
+  if (!confirm("Delete this history entry?")) return;
+
+  book.history.splice(index, 1);
+
+  saveState();
+  renderAll();
+  openBook(selectedBookId);
 }
     
     function saveSelectedBook() {
@@ -1084,12 +1106,18 @@ function deleteBook(id) {
       const toggleStatusBtn = e.target.closest("[data-toggle-status]");
       const removeWishBtn = e.target.closest("[data-remove-wish]");
       const tagPick = e.target.closest("[data-tag-pick]");
+      const deleteHistoryBtn = e.target.closest("[data-delete-history]");
       const deleteBtn = e.target.closest("[data-delete-book]");
 
       if (openBookBtn) openBook(openBookBtn.dataset.openBook);
       if (toggleStatusBtn) toggleStatus(toggleStatusBtn.dataset.toggleStatus);
       if (removeWishBtn) removeWish(removeWishBtn.dataset.removeWish);
       if (tagPick) el.modalTag.value = tagPick.dataset.tagPick;
+      if (deleteHistoryBtn) {
+  deleteHistoryEntry(
+    Number(deleteHistoryBtn.dataset.deleteHistory)
+  );
+}
       if (deleteBtn) deleteBook(deleteBtn.dataset.deleteBook);
     });
 

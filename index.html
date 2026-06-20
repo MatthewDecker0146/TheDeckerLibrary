@@ -479,10 +479,11 @@
       </select>
       <button id="resetBtn" class="secondary">Reset</button>
       <select id="sortBy">
+  <option value="recent">Sort: Recently Added</option>
   <option value="title">Sort: Title (A–Z)</option>
   <option value="author">Sort: Author (A–Z)</option>
-  <option value="genre">Sort: Genre</option>
-  <option value="status">Sort: Status</option>
+  <option value="rating">Sort: Highest Rated</option>
+  <option value="read">Sort: Most Read</option>
 </select>
     </div>
 
@@ -871,13 +872,30 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
   const sort = el.sortBy.value;
 
-  result.sort((a, b) => {
-    if (sort === "title") return a.title.localeCompare(b.title);
-    if (sort === "author") return a.author.localeCompare(b.author);
-    if (sort === "genre") return (a.genre || "").localeCompare(b.genre || "");
-    if (sort === "status") return a.status.localeCompare(b.status);
-    return 0;
-  });
+result.sort((a, b) => {
+
+  if (sort === "recent") {
+    return state.books.indexOf(a) - state.books.indexOf(b);
+  }
+
+  if (sort === "title") {
+    return a.title.localeCompare(b.title);
+  }
+
+  if (sort === "author") {
+    return a.author.localeCompare(b.author);
+  }
+
+  if (sort === "rating") {
+    return (b.rating || 0) - (a.rating || 0);
+  }
+
+  if (sort === "read") {
+    return (b.history?.length || 0) - (a.history?.length || 0);
+  }
+
+  return 0;
+});
 
   return result;
 }

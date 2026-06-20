@@ -24,7 +24,26 @@
   font-size: 14px;
   color: #555;
 }
-    
+
+    .upload-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.upload-btn:hover {
+  border-color: #c89d73;
+  box-shadow: 0 0 0 4px rgba(200,157,115,0.14);
+}
+
     :root {
       --bg: #f6f1e8;
       --panel: #ffffff;
@@ -483,14 +502,15 @@
   <select id="newGenre"></select>
 </div>
 
-<div style="margin-top:10px;">
+<label class="upload-btn">
+  📷 Upload Cover Image
   <input
     type="file"
     id="imageUpload"
     accept="image/*"
-    style="width:100%;"
+    hidden
   />
-</div>
+</label>
           <div class="grid-2" style="margin-top:10px;">
             <select id="newShelf">
   <option value="Bookshelf 1">Bookshelf 1</option>

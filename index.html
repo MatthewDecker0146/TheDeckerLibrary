@@ -481,7 +481,11 @@
           </div>
           <div class="grid-2" style="margin-top:10px;">
            <select id="newGenre"></select>
-            <input id="newCover" placeholder="Cover image URL" />
+            <input
+  type="file"
+  id="imageUpload"
+  accept="image/*"
+/>
           </div>
           <div class="grid-2" style="margin-top:10px;">
             <select id="newShelf">
@@ -1055,25 +1059,17 @@ function deleteBook(id) {
     }
 
   function addBook() {
-  const title = el.newTitle.value.trim();
-  const author = el.newAuthor.value.trim();
-  const genre = el.newGenre.value;
-  const shelf = el.newShelf.value;
-  const shelfNum = el.newShelfNum.value;
-  const cover = el.newCover.value.trim();
-  const tag = el.newTag.value;
-
-  if (!title) return alert("Please enter a title.");
+  const file = document.getElementById("imageUpload").files[0];
 
   const book = {
     id: crypto.randomUUID(),
-    title: title || "Untitled",
-    author: author || "Unknown",
-    genre: genre || "Unsorted",
-    shelf: shelf || "N/A",
-    shelfNum: shelfNum || "",
-    cover: cover || "",
-    tag: tag || "",
+    title: el.newTitle.value.trim() || "Untitled",
+    author: el.newAuthor.value.trim() || "Unknown",
+    genre: el.newGenre.value,
+    cover: "",
+    shelf: el.newShelf.value,
+    shelfNum: el.newShelfNum.value,
+    tag: el.newTag.value,
     status: "Available",
     currentReader: "",
     rating: 0,
@@ -1082,9 +1078,33 @@ function deleteBook(id) {
     history: []
   };
 
-  state.books.unshift(book);
-  saveState();
-  renderAll();
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      book.cover = e.target.result;
+
+      state.books.unshift(book);
+      saveState();
+      renderAll();
+
+      el.newTitle.value = "";
+      el.newAuthor.value = "";
+      el.newTag.value = "";
+      document.getElementById("imageUpload").value = "";
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    state.books.unshift(book);
+
+    saveState();
+    renderAll();
+
+    el.newTitle.value = "";
+    el.newAuthor.value = "";
+    el.newTag.value = "";
+  }
 }
     
     function addWish() {

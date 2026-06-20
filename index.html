@@ -570,8 +570,13 @@
 </select>
           </div>
           <div>
-            <label class="tiny" for="modalShelfNum">Shelf number</label>
-            <input id="modalShelfNum" type="number" min="1" />
+            <label class="tiny" for="modalShelfNum">Column</label>
+<select id="modalShelfNum">
+  <option value="Column 1">Column 1</option>
+  <option value="Column 2">Column 2</option>
+  <option value="Column 3">Column 3</option>
+  <option value="Column 4">Column 4</option>
+</select>
           </div>
         </div>
 
@@ -871,7 +876,7 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
               <div class="meta">${esc(book.author)}<br>${esc(book.genre || "No genre")}</div>
             </div>
             <div class="badge-row">
-              <span class="badge">${esc(book.shelf || "Unknown shelf")} • Shelf ${esc(book.shelfNum ?? "-")}</span>
+              <span class="badge">${esc(book.shelf || "Unknown shelf")} • ${esc(book.shelfNum ?? "-")}</span>
               <span class="badge status ${book.status.toLowerCase()}">${esc(book.status)}${book.currentReader ? ` • ${esc(book.currentReader)}` : ""}</span>
             </div>
             <div class="badge-row">
@@ -996,7 +1001,7 @@ function deleteBook(id) {
       book.genre = el.modalGenre.value.trim();
       book.tag = el.modalTag.value.trim();
       book.shelf = el.modalShelf.value.trim();
-      book.shelfNum = Number(el.modalShelfNum.value) || "";
+      book.shelfNum = el.modalShelfNum.value;
       book.status = el.modalStatus.value;
       book.currentReader = el.modalReader.value.trim();
       book.rating = Number(el.modalRating.value) || 0;

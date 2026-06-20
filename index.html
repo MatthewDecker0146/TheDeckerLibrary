@@ -411,7 +411,7 @@
     dialog {
       border: none;
       border-radius: 20px;
-      width: min(760px, calc(100vw - 24px));
+      width: min(860px, calc(100vw - 24px));
       box-shadow: 0 24px 80px rgba(0,0,0,0.25);
       padding: 0;
       overflow: hidden;
@@ -422,7 +422,7 @@
 
     .modal-grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: minmax(240px, 300px) 1fr;
       min-height: 520px;
     }
 
@@ -435,14 +435,50 @@
     .modal-cover .cover-fallback { font-size: 1.5rem; }
 
     .modal-content {
-      padding: 22px;
+      padding: 24px;
       display: grid;
-      gap: 14px;
+      gap: 16px;
       align-content: start;
     }
 
     .modal-content h3 { margin: 8px 0 2px; font-size: 1.58rem; line-height: 1.16; }
     .modal-content p { margin: 0; color: var(--muted); }
+
+    .modal-field-section {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid #eadccb;
+      border-radius: var(--radius);
+      background: #fffaf4;
+    }
+
+    .modal-field-section-details {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    }
+
+    .modal-field-section-location,
+    .modal-field-section-reading {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 0.62fr);
+      align-items: end;
+    }
+
+    .modal-field-section-reading {
+      grid-template-columns: minmax(132px, 0.48fr) minmax(0, 1fr);
+    }
+
+    .modal-field-section-review {
+      grid-template-columns: minmax(118px, 0.42fr) minmax(0, 1fr) minmax(0, 1fr);
+      align-items: end;
+    }
+
+    .modal-field {
+      min-width: 0;
+    }
+
+    .modal-field-compact select {
+      max-width: 180px;
+    }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -537,6 +573,17 @@
         max-height: 420px;
       }
       .modal-cover img { position: absolute; inset: 0; }
+      .modal-field-section-location,
+      .modal-field-section-reading,
+      .modal-field-section-review {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .modal-field-section-review .modal-field:first-child {
+        grid-column: 1 / -1;
+      }
+      .modal-field-compact select {
+        max-width: none;
+      }
     }
 
     @media (max-width: 640px) {
@@ -550,6 +597,17 @@
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .modal-cover { min-height: 260px; }
       .modal-content { padding: 16px; }
+      .modal-field-section,
+      .modal-field-section-details,
+      .modal-field-section-location,
+      .modal-field-section-reading,
+      .modal-field-section-review {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .modal-field-section-review .modal-field:first-child {
+        grid-column: auto;
+      }
       .book-actions button { min-width: 92px; }
       .wishlist-item {
         align-items: flex-start;
@@ -713,12 +771,12 @@
           <p id="modalAuthor"></p>
         </div>
 
-        <div class="grid-2">
-          <div>
+        <div class="modal-field-section modal-field-section-details">
+          <div class="modal-field">
             <label class="tiny" for="modalGenre">Genre</label>
 <select id="modalGenre"></select>
           </div>
-          <div>
+          <div class="modal-field">
             <label class="tiny" for="modalTag">Who recommends this?</label>
 <select id="modalTag">
   <option value="">None</option>
@@ -735,15 +793,15 @@
           </div>
         </div>
 
-        <div class="grid-2">
-          <div>
+        <div class="modal-field-section modal-field-section-location">
+          <div class="modal-field">
             <label class="tiny" for="modalShelf">Bookshelf</label>
 <select id="modalShelf">
   <option value="Bookshelf 1">Bookshelf 1</option>
   <option value="Bookshelf 2">Bookshelf 2</option>
 </select>
           </div>
-          <div>
+          <div class="modal-field modal-field-compact">
             <label class="tiny" for="modalShelfNum">Column</label>
 <select id="modalShelfNum">
   <option value="Column 1">Column 1</option>
@@ -754,15 +812,15 @@
           </div>
         </div>
 
-        <div class="grid-2">
-          <div>
+        <div class="modal-field-section modal-field-section-reading">
+          <div class="modal-field modal-field-compact">
             <label class="tiny" for="modalStatus">Status</label>
             <select id="modalStatus">
               <option>Available</option>
               <option>Reading</option>
             </select>
           </div>
-          <div>
+          <div class="modal-field">
             <label class="tiny" for="modalReader">Currently reading</label>
 <select id="modalReader">
   <option value="">Nobody</option>
@@ -779,8 +837,8 @@
           </div>
         </div>
 
-        <div class="grid-3">
-          <div>
+        <div class="modal-field-section modal-field-section-review">
+          <div class="modal-field modal-field-compact">
             <label class="tiny" for="modalRating">Rating</label>
             <select id="modalRating">
               <option value="0">No rating</option>
@@ -791,7 +849,7 @@
               <option value="5">5 stars</option>
             </select>
           </div>
-          <div>
+          <div class="modal-field">
             <label class="tiny" for="modalEmoji">Emoji review</label>
             <select id="modalEmoji">
               <option value="">Choose one</option>
@@ -805,7 +863,7 @@
 <option>🏆 Favorite</option>
             </select>
           </div>
-          <div>
+          <div class="modal-field">
             <label class="tiny" for="modalFamily">Family member</label>
 <select id="modalFamily">
   <option value="">Choose a family member</option>

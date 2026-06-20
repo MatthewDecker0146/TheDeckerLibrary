@@ -664,8 +664,6 @@
           <textarea id="modalReview" rows="3" placeholder="Write a short review..."></textarea>
         </div>
 
-        <div class="family-tags" id="modalTags"></div>
-
         <div>
           <label class="tiny">Borrowing history</label>
           <div id="modalHistory" class="review-list"></div>
@@ -758,7 +756,6 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       bookDialog: document.getElementById("bookDialog"),
       modalCover: document.getElementById("modalCover"),
       modalBadges: document.getElementById("modalBadges"),
-      modalTags: document.getElementById("modalTags"),
       modalTitle: document.getElementById("modalTitle"),
       modalAuthor: document.getElementById("modalAuthor"),
       modalGenre: document.getElementById("modalGenre"),
@@ -952,20 +949,6 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
         <span class="badge ${book.status.toLowerCase()}">${esc(book.status)}</span>
       `;
 
-    el.modalTags.innerHTML = [
-  "Mom's Favorite",
-  "Dad's Favorite",
-  "Joseph's Favorite",
-  "Michael's Favorite",
-  "Matthew's Favorite",
-  "Gabe's Favorite",
-  "Elizabeth's Favorite",
-  "John's Favorite",
-  "James's Favorite"
-]
-  .map(tag => `<span class="tag" data-tag-pick="${esc(tag)}">${esc(tag)}</span>`)
-  .join("");
-
       renderHistory(book);
       el.bookDialog.showModal();
     }
@@ -1146,14 +1129,12 @@ function deleteBook(id) {
       const openBookBtn = e.target.closest("[data-open-book]");
       const toggleStatusBtn = e.target.closest("[data-toggle-status]");
       const removeWishBtn = e.target.closest("[data-remove-wish]");
-      const tagPick = e.target.closest("[data-tag-pick]");
       const deleteHistoryBtn = e.target.closest("[data-delete-history]");
       const deleteBtn = e.target.closest("[data-delete-book]");
 
       if (openBookBtn) openBook(openBookBtn.dataset.openBook);
       if (toggleStatusBtn) toggleStatus(toggleStatusBtn.dataset.toggleStatus);
       if (removeWishBtn) removeWish(removeWishBtn.dataset.removeWish);
-      if (tagPick) el.modalTag.value = tagPick.dataset.tagPick;
       if (deleteHistoryBtn) {
   deleteHistoryEntry(
     Number(deleteHistoryBtn.dataset.deleteHistory)

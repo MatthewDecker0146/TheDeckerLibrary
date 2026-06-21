@@ -1075,6 +1075,10 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
     const el = {
       bookGrid: document.getElementById("bookGrid"),
+      document.getElementById("imageUpload").addEventListener("change", () => {
+  const file = document.getElementById("imageUpload").files[0];
+  el.coverFileName.textContent = file ? file.name : "No file selected";
+});
       randomBookBtn: document.getElementById("randomBookBtn"),
       catalogCount: document.getElementById("catalogCount"),
       statsSummary: document.getElementById("statsSummary"),
@@ -1443,7 +1447,6 @@ function deleteBook(id) {
 
   function addBook() {
   const file = document.getElementById("imageUpload").files[0];
-    el.coverFileName.textContent = file ? file.name : "No file selected";
 
   const book = {
     id: crypto.randomUUID(),

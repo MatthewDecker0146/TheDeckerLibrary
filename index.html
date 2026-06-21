@@ -1289,7 +1289,8 @@ result.sort((a, b) => {
             </div>
             <div class="badge-row">
               <span class="badge">${esc(book.shelf || "Unknown shelf")} • ${esc(book.shelfNum ?? "-")}</span>
-              <span class="badge status ${book.status.toLowerCase()}">${esc(book.status)}${book.currentReader ? ` • ${esc(book.currentReader)}` : ""}</span>
+              <span class="badge status ${book.status.toLowerCase()}">${esc(book.status)}</span>
+${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
               <span class="badge">${stars(book.rating || 0)}</span>

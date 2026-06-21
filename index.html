@@ -1202,8 +1202,8 @@ result.sort((a, b) => {
   }
 
   if (sort === "rating") {
-    return (b.rating || 0) - (a.rating || 0);
-  }
+  return getAverageRating(b) - getAverageRating(a);
+}
 
   if (sort === "read") {
     return (b.history?.length || 0) - (a.history?.length || 0);
@@ -1313,8 +1313,8 @@ result.sort((a, b) => {
 ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
-  <span class="badge">${stars(book.rating || 0)}</span>
-  <span class="badge">${book.review ? "1 review" : "0 reviews"}</span>
+  <span class="badge">${stars(getAverageRating(book))}</span>
+  <span class="badge">${(book.ratings?.length || 0)} ratings</span>
   ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
 </div>
             ${book.tag ? `<div class="badge-row"><span class="badge">⭐ ${esc(book.tag)}</span></div>` : ""}
@@ -1342,7 +1342,7 @@ ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentR
       el.modalShelfNum.value = book.shelfNum ?? "";
       el.modalStatus.value = book.status || "Available";
       el.modalReader.value = book.currentReader || "";
-      el.modalRating.value = book.rating || 0;
+      el.modalRating.value = 0;
       el.modalEmoji.value = book.emoji || "";
       el.modalFamily.value = "";
       el.modalReview.value = book.review || "";
@@ -1424,9 +1424,25 @@ function deleteBook(id) {
       book.shelfNum = el.modalShelfNum.value;
       book.status = el.modalStatus.value;
       book.currentReader = el.modalReader.value.trim();
-      book.rating = Number(el.modalRating.value) || 0;
       book.emoji = el.modalEmoji.value;
       book.review = el.modalReview.value.trim();
+      const newRating = Number(el.modalRating.value);
+const rater = el.modalFamily.value || el.modalReader.value || "Anonymous";
+
+if (!book.ratings) book.ratings = [];
+
+if (newRating > 0) {
+  const existing = book.ratings.find(r => r.name === rater);
+
+  if (existing) {
+    existing.value = newRating;
+  } else {
+    book.ratings.push({
+      name: rater,
+      value: newRating
+    });
+  }
+}
       saveState();
       renderAll();
       openBook(selectedBookId);
@@ -1460,7 +1476,7 @@ function deleteBook(id) {
     tag: el.newTag.value,
     status: "Available",
     currentReader: "",
-    rating: 0,
+    ratings: [],
     emoji: "",
     review: "",
     history: []
@@ -1505,7 +1521,16 @@ function deleteBook(id) {
       el.wishReason.value = "";
       saveState();
       renderWishlist();
+
+      
     }
+
+    function getAverageRating(book) {
+  if (!book.ratings || book.ratings.length === 0) return 0;
+
+  const sum = book.ratings.reduce((a, r) => a + r.value, 0);
+  return Math.round(sum / book.ratings.length);
+}
 
     function toggleStatus(id) {
       const book = state.books.find(b => b.id === id);

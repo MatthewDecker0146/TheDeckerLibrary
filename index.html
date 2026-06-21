@@ -1275,7 +1275,7 @@ result.sort((a, b) => {
       const books = getFilteredBooks();
       el.catalogCount.textContent = `${books.length} shown / ${state.books.length} total`;
       if (!books.length) {
-        el.bookGrid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No books match your search.</div>`;
+        el.bookGrid.innerHTML = `<div class="empty" style="grid-column:1/-1;">📚 No books found. Try changing your filters.</div>`;
         return;
       }
 

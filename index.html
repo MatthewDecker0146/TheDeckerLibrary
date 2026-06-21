@@ -1075,10 +1075,6 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
     const el = {
       bookGrid: document.getElementById("bookGrid"),
-      document.getElementById("imageUpload").addEventListener("change", () => {
-  const file = document.getElementById("imageUpload").files[0];
-  el.coverFileName.textContent = file ? file.name : "No file selected";
-});
       randomBookBtn: document.getElementById("randomBookBtn"),
       catalogCount: document.getElementById("catalogCount"),
       statsSummary: document.getElementById("statsSummary"),
@@ -1097,7 +1093,6 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       coverFileName: document.getElementById("coverFileName"),
       newAuthor: document.getElementById("newAuthor"),
       newGenre: document.getElementById("newGenre"),
-      newCover: document.getElementById("newCover"),
       newShelf: document.getElementById("newShelf"),
       newShelfNum: document.getElementById("newShelfNum"),
       newTag: document.getElementById("newTag"),
@@ -1124,6 +1119,12 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       addHistoryBtn: document.getElementById("addHistoryBtn"),
       closeDialogBtn: document.getElementById("closeDialogBtn")
     };
+
+    document.getElementById("imageUpload").addEventListener("change", () => {
+  const file = document.getElementById("imageUpload").files[0];
+  el.coverFileName.textContent =
+    file ? file.name : "No file selected";
+});
 
     function loadState() {
       try {

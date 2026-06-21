@@ -1330,7 +1330,6 @@ ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentR
 
       el.modalCover.innerHTML = book.cover ? `<img src="${esc(book.cover)}" alt="Cover of ${esc(book.title)}" />` : `<div class="cover-fallback">${esc(book.title)}</div>`;
       el.modalTitle.textContent = book.title;
-      el.randomBookBtn.addEventListener("click", openRandomBook);
       el.modalAuthor.textContent = book.author;
       el.modalGenre.value = book.genre || "";
       el.modalTag.value = book.tag || "";
@@ -1540,6 +1539,7 @@ function deleteBook(id) {
     });
 
     el.addBookBtn.addEventListener("click", addBook);
+    el.randomBookBtn.addEventListener("click", openRandomBook);
     el.addWishBtn.addEventListener("click", addWish);
     el.saveBookBtn.addEventListener("click", saveSelectedBook);
     el.addHistoryBtn.addEventListener("click", addHistoryEntry);

@@ -773,7 +773,8 @@
         <option value="All">All tags</option>
       </select>
       <button id="resetBtn" class="secondary">Reset</button>
-      <select id="sortBy">
+<button id="randomBookBtn" class="secondary">Random Book</button>
+<select id="sortBy">
   <option value="recent">Sort: Recently Added</option>
   <option value="title">Sort: Title (A–Z)</option>
   <option value="author">Sort: Author (A–Z)</option>
@@ -1074,6 +1075,7 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
     const el = {
       bookGrid: document.getElementById("bookGrid"),
+      randomBookBtn: document.getElementById("randomBookBtn"),
       catalogCount: document.getElementById("catalogCount"),
       statsSummary: document.getElementById("statsSummary"),
       goalText: document.getElementById("goalText"),
@@ -1126,6 +1128,17 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       } catch (e) {}
       return structuredClone(defaultData);
     }
+
+    function openRandomBook() {
+  if (!state.books.length) {
+    alert("No books in the library yet.");
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * state.books.length);
+  const book = state.books[randomIndex];
+  if (book) openBook(book.id);
+}
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -1317,6 +1330,7 @@ ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentR
 
       el.modalCover.innerHTML = book.cover ? `<img src="${esc(book.cover)}" alt="Cover of ${esc(book.title)}" />` : `<div class="cover-fallback">${esc(book.title)}</div>`;
       el.modalTitle.textContent = book.title;
+      el.randomBookBtn.addEventListener("click", openRandomBook);
       el.modalAuthor.textContent = book.author;
       el.modalGenre.value = book.genre || "";
       el.modalTag.value = book.tag || "";

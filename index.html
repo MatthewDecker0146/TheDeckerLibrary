@@ -804,14 +804,15 @@
   <select id="newGenre"></select>
 
   <label class="upload-btn">
-    📷 Upload Cover Image
-    <input
-      type="file"
-      id="imageUpload"
-      accept="image/*"
-      hidden
-    />
-  </label>
+  📷 Upload Cover Image
+  <input
+    type="file"
+    id="imageUpload"
+    accept="image/*"
+    hidden
+  />
+</label>
+<div id="coverFileName" class="tiny" style="margin-top:4px;">No file selected</div>
 </div>
           <div class="grid-2" style="margin-top:10px;">
             <select id="newShelf">
@@ -1087,6 +1088,7 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
       wishTitle: document.getElementById("wishTitle"),
       wishReason: document.getElementById("wishReason"),
       newTitle: document.getElementById("newTitle"),
+      coverFileName: document.getElementById("coverFileName"),
       newAuthor: document.getElementById("newAuthor"),
       newGenre: document.getElementById("newGenre"),
       newCover: document.getElementById("newCover"),
@@ -1428,6 +1430,7 @@ function deleteBook(id) {
 
   function addBook() {
   const file = document.getElementById("imageUpload").files[0];
+    el.coverFileName.textContent = file ? file.name : "No file selected";
 
   const book = {
     id: crypto.randomUUID(),
@@ -1460,6 +1463,7 @@ function deleteBook(id) {
       el.newAuthor.value = "";
       el.newTag.value = "";
       document.getElementById("imageUpload").value = "";
+      el.coverFileName.textContent = "No file selected";
     };
 
     reader.readAsDataURL(file);
@@ -1472,6 +1476,7 @@ function deleteBook(id) {
     el.newTitle.value = "";
     el.newAuthor.value = "";
     el.newTag.value = "";
+    el.coverFileName.textContent = "No file selected";
   }
 }
     

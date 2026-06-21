@@ -1293,9 +1293,10 @@ result.sort((a, b) => {
 ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
-              <span class="badge">${stars(book.rating || 0)}</span>
-              ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
-            </div>
+  <span class="badge">${stars(book.rating || 0)}</span>
+  <span class="badge">${book.review ? "1 review" : "0 reviews"}</span>
+  ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
+</div>
             ${book.tag ? `<div class="badge-row"><span class="badge">⭐ ${esc(book.tag)}</span></div>` : ""}
             <div class="book-actions">
   <button data-open-book="${book.id}">Open</button>

@@ -1156,9 +1156,16 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
     }
 
     function stars(n) {
-      if (!n) return "No rating yet";
-      return "★".repeat(n) + "☆".repeat(5 - n);
-    }
+  if (!n) return "No rating yet";
+
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+
+  return "★".repeat(full) +
+         (half ? "½" : "") +
+         "☆".repeat(empty);
+}
 
     function getFilteredBooks() {
   const q = el.searchInput.value.trim().toLowerCase();
@@ -1529,7 +1536,7 @@ if (newRating > 0) {
   if (!book.ratings || book.ratings.length === 0) return 0;
 
   const sum = book.ratings.reduce((a, r) => a + r.value, 0);
-  return Math.round(sum / book.ratings.length);
+  return sum / book.ratings.length; // no rounding
 }
 
     function toggleStatus(id) {

@@ -26,55 +26,40 @@
     }
 
     .stars {
-  display: inline-flex;
+  display: flex;
   gap: 2px;
-  font-size: 1rem;
-  line-height: 1;
-}
-
-    .stars {
-  display: inline-flex;
-  gap: 2px;
-  font-size: 1.1rem;
   align-items: center;
 }
 
 .star {
   position: relative;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  color: #d9c0a5;
-  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .star::before {
   content: "★";
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
+  color: #d9c0a5;
+  font-size: 18px;
+  line-height: 18px;
 }
 
 .star.full::before {
   color: #7a4f2b;
 }
 
-.star.empty::before {
-  color: #d9c0a5;
-}
-
-.star.half::before {
-  color: #d9c0a5;
-}
-
 .star.half::after {
   content: "★";
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 50%;
   overflow: hidden;
   color: #7a4f2b;
+  font-size: 18px;
+  line-height: 18px;
 }
 
     * { box-sizing: border-box; }

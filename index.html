@@ -25,6 +25,41 @@
       --focus: 0 0 0 4px rgba(184, 124, 76, 0.16);
     }
 
+    .stars {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 1rem;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  color: #d9c0a5; /* empty star color */
+}
+
+.star.full {
+  color: #7a4f2b;
+}
+
+.star.empty {
+  color: #d9c0a5;
+}
+
+/* REAL half-star magic */
+.star.half {
+  color: #d9c0a5;
+}
+
+.star.half::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: #7a4f2b;
+}
+
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     html { background: var(--bg); }
@@ -1156,15 +1191,25 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
     }
 
     function stars(n) {
-  if (!n) return "No rating yet";
+  if (!n && n !== 0) return "No rating yet";
 
-  const full = Math.floor(n);
-  const half = n % 1 >= 0.5 ? 1 : 0;
-  const empty = 5 - full - half;
+  const rounded = Math.round(n * 2) / 2; // forces only .0 or .5
+  const full = Math.floor(rounded);
+  const hasHalf = rounded % 1 !== 0;
 
-  return "★".repeat(full) +
-         (half ? "½" : "") +
-         "☆".repeat(empty);
+  let html = "";
+
+  for (let i = 0; i < 5; i++) {
+    if (i < full) {
+      html += `<span class="star full">★</span>`;
+    } else if (i === full && hasHalf) {
+      html += `<span class="star half">★</span>`;
+    } else {
+      html += `<span class="star empty">★</span>`;
+    }
+  }
+
+  return `<span class="stars">${html}</span>`;
 }
 
     function getFilteredBooks() {

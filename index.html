@@ -26,40 +26,31 @@
     }
 
     .stars {
-  display: flex;
+  display: inline-flex;
   gap: 2px;
-  align-items: center;
 }
 
 .star {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-}
-
-.star::before {
-  content: "★";
-  position: absolute;
-  inset: 0;
+  font-size: 18px;
   color: #d9c0a5;
-  font-size: 18px;
-  line-height: 18px;
 }
 
-.star.full::before {
+.star.full {
   color: #7a4f2b;
 }
 
-.star.half::after {
-  content: "★";
-  position: absolute;
-  inset: 0;
-  width: 50%;
-  overflow: hidden;
-  color: #7a4f2b;
-  font-size: 18px;
-  line-height: 18px;
+.star.half {
+  background: linear-gradient(
+    to right,
+    #7a4f2b 50%,
+    #d9c0a5 50%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.star.empty {
+  color: #d9c0a5;
 }
 
     * { box-sizing: border-box; }
@@ -1193,9 +1184,7 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
     }
 
     function stars(n) {
-  if (!n && n !== 0) return "No rating yet";
-
-  const rounded = Math.round(n * 2) / 2; // forces only .0 or .5
+  const rounded = Math.round(n * 2) / 2;
   const full = Math.floor(rounded);
   const hasHalf = rounded % 1 !== 0;
 
@@ -1203,12 +1192,12 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
   for (let i = 0; i < 5; i++) {
     if (i < full) {
-  html += `<span class="star full"></span>`;
-} else if (i === full && hasHalf) {
-  html += `<span class="star half"></span>`;
-} else {
-  html += `<span class="star empty"></span>`;
-}
+      html += `<span class="star full">★</span>`;
+    } else if (i === full && hasHalf) {
+      html += `<span class="star half">★</span>`;
+    } else {
+      html += `<span class="star empty">★</span>`;
+    }
   }
 
   return `<span class="stars">${html}</span>`;

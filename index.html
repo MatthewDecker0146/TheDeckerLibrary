@@ -32,6 +32,13 @@
   line-height: 1;
 }
 
+    .stars {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 1.1rem;
+  align-items: center;
+}
+
 .star {
   position: relative;
   display: inline-block;
@@ -1375,7 +1382,7 @@ result.sort((a, b) => {
 ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
-  <span class="badge">${stars(getAverageRating(book))}</span>
+  ${stars(getAverageRating(book))}
   <span class="badge">${(book.ratings?.length || 0)} ratings</span>
   ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
 </div>

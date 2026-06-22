@@ -29,29 +29,38 @@
   display: inline-flex;
   gap: 2px;
   font-size: 1rem;
+  line-height: 1;
 }
 
 .star {
   position: relative;
   display: inline-block;
-  color: #d9c0a5; /* empty star color */
+  width: 1em;
+  height: 1em;
+  color: #d9c0a5;
+  overflow: hidden;
 }
 
-.star.full {
+.star::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.star.full::before {
   color: #7a4f2b;
 }
 
-.star.empty {
-  color: #d9c0a5;
-  text-shadow: none;
-}
-
-/* REAL half-star magic */
-.star.half {
+.star.empty::before {
   color: #d9c0a5;
 }
 
 .star.half::before {
+  color: #d9c0a5;
+}
+
+.star.half::after {
   content: "★";
   position: absolute;
   left: 0;
@@ -1202,12 +1211,12 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
   for (let i = 0; i < 5; i++) {
     if (i < full) {
-      html += `<span class="star full">★</span>`;
-    } else if (i === full && hasHalf) {
-      html += `<span class="star half">★</span>`;
-    } else {
-      html += `<span class="star empty">★</span>`;
-    }
+  html += `<span class="star full"></span>`;
+} else if (i === full && hasHalf) {
+  html += `<span class="star half"></span>`;
+} else {
+  html += `<span class="star empty"></span>`;
+}
   }
 
   return `<span class="stars">${html}</span>`;

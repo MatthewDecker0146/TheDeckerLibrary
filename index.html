@@ -1367,7 +1367,7 @@ result.sort((a, b) => {
 ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
-  ${stars(getAverageRating(book))}
+  <div>${stars(getAverageRating(book))}</div>
   <span class="badge">${(book.ratings?.length || 0)} ratings</span>
   ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
 </div>

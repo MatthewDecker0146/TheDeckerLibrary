@@ -27,14 +27,28 @@
 
     .stars {
   display: inline-flex;
-  gap: 2px;
+  align-items: center;
+  gap: 1px;
+  white-space: nowrap;
   font-size: 0;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .star {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
   font-size: 18px;
   line-height: 1;
-  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+  text-decoration: none !important;
+  padding: 0;
+  margin: 0;
 }
 
 .star.full {
@@ -46,27 +60,17 @@
 }
 
 .star.half {
-  color: #7a4f2b;
   position: relative;
-}
-
-.star.half {
-  position: relative;
+  color: #d9c0a5;
 }
 
 .star.half::before {
   content: "★";
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 50%;
   overflow: hidden;
   color: #7a4f2b;
-}
-
-.star.half::after {
-  content: "★";
-  color: #d9c0a5;
 }
 
     * { box-sizing: border-box; }
@@ -1207,16 +1211,14 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
   for (let i = 1; i <= 5; i++) {
     if (value >= i) {
       html += `<span class="star full">★</span>`;
-    } 
-    else if (value >= i - 0.5) {
+    } else if (value >= i - 0.5) {
       html += `<span class="star half">★</span>`;
-    } 
-    else {
+    } else {
       html += `<span class="star empty">★</span>`;
     }
   }
 
-  return `<span class="stars">${html}</span>`;
+  return `<span class="stars" aria-label="${value} out of 5 stars">${html}</span>`;
 }
 
     function getFilteredBooks() {

@@ -32,6 +32,7 @@
     
     .stars {
   display: inline-flex;
+  align-items: center;
   gap: 2px;
 }
 
@@ -43,6 +44,7 @@
   padding: 0;
   border: none;
   background: transparent;
+  vertical-align: middle;
   color: #d9c0a5;
 }
 
@@ -1202,14 +1204,14 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
   let html = "";
 
   for (let i = 0; i < 5; i++) {
-    if (i < full) {
-      html += `<span class="star empty">★</span>`;
-    } else if (i === full && hasHalf) {
-      html += `<span class="star empty">★</span>`;
-    } else {
-      html += `<span class="star empty">★</span>`;
-    }
+  if (i < full) {
+    html += `<span class="star full">★</span>`;
+  } else if (i === full && hasHalf) {
+    html += `<span class="star half">★</span>`;
+  } else {
+    html += `<span class="star empty">★</span>`;
   }
+}
 
   return `<span class="stars">${html}</span>`;
 }
@@ -1367,7 +1369,7 @@ result.sort((a, b) => {
 ${book.currentReader ? `<div class="tiny">Currently reading: ${esc(book.currentReader)}</div>` : ""}
             </div>
             <div class="badge-row">
-  <div>${stars(getAverageRating(book))}</div>
+  <span>${stars(getAverageRating(book))}</span>
   <span class="badge">${(book.ratings?.length || 0)} ratings</span>
   ${book.emoji ? `<span class="badge">${esc(book.emoji)}</span>` : ""}
 </div>

@@ -29,24 +29,29 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  flex-shrink: 0;
   white-space: nowrap;
+  vertical-align: middle;
 }
 
 .star {
-  display: block;
   width: 18px;
   height: 18px;
-  line-height: 18px;
-  text-align: center;
-  font-size: 18px;
-  font-family: Arial, sans-serif;
+  display: grid;
+  place-items: center;
 
-  margin: 0;
+  font-size: 18px;
+  line-height: 1;
+
   padding: 0;
+  margin: 0;
+
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
   background: transparent !important;
+
+  flex: 0 0 18px;
 }
     
 .star.full {
@@ -60,13 +65,13 @@
 .star.half {
   position: relative;
   color: #d9c0a5;
+  overflow: hidden;
 }
 
 .star.half::before {
   content: "★";
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 50%;
   overflow: hidden;
   color: #7a4f2b;
@@ -397,6 +402,18 @@
       font-weight: 700;
       line-height: 1.25;
     }
+
+    .badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+    .badge-row > span {
+  display: inline-flex;
+  align-items: center;
+}
 
     .status.available { color: var(--good); }
     .status.reading { color: var(--warn); }

@@ -28,6 +28,7 @@
     .stars {
   display: inline-flex;
   align-items: center;
+  gap: 0;
 }
 
 .star {
@@ -36,10 +37,11 @@
   line-height: 1;
   margin: 0;
   padding: 0;
-  width: 18px;
-  text-align: center;
-  background: transparent;
-  border: none;
+  outline: none !important;
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
   vertical-align: middle;
 }
 
@@ -52,13 +54,18 @@
 }
 
 .star.half {
-  background: linear-gradient(
-    to right,
-    #7a4f2b 50%,
-    #d9c0a5 50%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #7a4f2b;
+  position: relative;
+}
+
+.star.half::after {
+  content: "★";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  overflow: hidden;
+  color: #d9c0a5;
 }
 
     * { box-sizing: border-box; }

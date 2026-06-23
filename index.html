@@ -1203,11 +1203,11 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
 
   for (let i = 0; i < 5; i++) {
     if (i < full) {
-      html += `<span class="star full">★</span>`;
+      html += `[★]`;
     } else if (i === full && hasHalf) {
-      html += `<span class="star half">★</span>`;
+      html += `[★]`;
     } else {
-      html += `<span class="star empty">★</span>`;
+      html += `[★]`;
     }
   }
 

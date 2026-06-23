@@ -27,22 +27,14 @@
 
     .stars {
   display: inline-flex;
-  align-items: center;
-  gap: 0;
+  gap: 2px;
+  font-size: 0;
 }
 
 .star {
-  display: inline-block;
   font-size: 18px;
   line-height: 1;
-  margin: 0;
-  padding: 0;
-  outline: none !important;
-  border: none !important;
-  background: none !important;
-  box-shadow: none !important;
-  text-decoration: none !important;
-  vertical-align: middle;
+  display: inline-block;
 }
 
 .star.full {
@@ -58,13 +50,22 @@
   position: relative;
 }
 
-.star.half::after {
+.star.half {
+  position: relative;
+}
+
+.star.half::before {
   content: "★";
   position: absolute;
+  left: 0;
   top: 0;
-  left: 50%;
   width: 50%;
   overflow: hidden;
+  color: #7a4f2b;
+}
+
+.star.half::after {
+  content: "★";
   color: #d9c0a5;
 }
 
@@ -1199,21 +1200,21 @@ if (!state.goal || state.goal.target !== GOAL_TARGET) {
     }
 
     function stars(n) {
-  const rounded = Math.round(n * 2) / 2;
-  const full = Math.floor(rounded);
-  const hasHalf = rounded % 1 !== 0;
+  const value = Math.round(n * 2) / 2;
 
   let html = "";
 
-  for (let i = 0; i < 5; i++) {
-  if (i < full) {
-    html += `<span class="star full">★</span>`;
-  } else if (i === full && hasHalf) {
-    html += `<span class="star half">★</span>`;
-  } else {
-    html += `<span class="star empty">★</span>`;
+  for (let i = 1; i <= 5; i++) {
+    if (value >= i) {
+      html += `<span class="star full">★</span>`;
+    } 
+    else if (value >= i - 0.5) {
+      html += `<span class="star half">★</span>`;
+    } 
+    else {
+      html += `<span class="star empty">★</span>`;
+    }
   }
-}
 
   return `<span class="stars">${html}</span>`;
 }

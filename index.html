@@ -25,45 +25,43 @@
       --focus: 0 0 0 4px rgba(184, 124, 76, 0.16);
     }
 
-    .star {
-  outline: none !important;
-  border: none !important;
-}
-    
     .stars {
   display: inline-flex;
-  align-items: center;
-  gap: 2px;
+  gap: 0;
 }
 
 .star {
-  display: inline-block;
   font-size: 18px;
   line-height: 1;
+  display: inline-block;
   margin: 0;
   padding: 0;
-  border: none;
-  background: transparent;
-  vertical-align: middle;
-  color: #d9c0a5;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .star.full {
   color: #7a4f2b;
 }
 
-.star.half {
-  background: linear-gradient(
-    to right,
-    #7a4f2b 50%,
-    #d9c0a5 50%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .star.empty {
   color: #d9c0a5;
+}
+
+.star.half {
+  color: #7a4f2b;
+  position: relative;
+}
+
+.star.half::after {
+  content: "★";
+  color: #d9c0a5;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  overflow: hidden;
 }
 
     * { box-sizing: border-box; }
